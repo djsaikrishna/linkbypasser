@@ -32,10 +32,10 @@ async def start(bot, message):
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
     try:
-        bypass_link =  gplinks_bypass(link) 
-        link_by = bypass_link.get('url')
+        bypass_link = await gplinks_bypass(link) 
         
-        await message.reply(f'Here is your {link_by}')
+        
+        await message.reply(f'Here is your {bypass_link}')
     except Exception as e:
         await message.reply(f'Error: {e}', quote=True)
                             
@@ -61,7 +61,7 @@ def gplinks_bypass(url):
     final_url = f'{p.scheme}://{p.netloc}/links/go'
     res = client.post(final_url, data=data, headers=h).json()
 
-    return res
+    return res['url']
 
 
 bot.run()
