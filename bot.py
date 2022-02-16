@@ -11,7 +11,6 @@ from urllib.parse import urlparse
 API_ID = environ.get('API_ID')
 API_HASH = environ.get('API_HASH')
 BOT_TOKEN = environ.get('BOT_TOKEN')
-API_KEY = environ.get('API_KEY', '5fd20df0c4db85798dd4f5ff3d03e3606a94f98b')
 
 bot = Client('gplink bot',
              api_id=API_ID,
@@ -24,8 +23,8 @@ bot = Client('gplink bot',
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
     await message.reply(
-        f"**𝗛𝗘𝗟𝗟𝗢🎈{message.chat.first_name}!**\n\n"
-        "𝗜'𝗺 𝗚𝗣𝗹𝗶𝗻𝗸 𝗯𝗼𝘁. 𝗝𝘂𝘀𝘁 𝘀𝗲𝗻𝗱 𝗺𝗲 𝗹𝗶𝗻𝗸 𝗮𝗻𝗱 𝗴𝗲𝘁 𝗦𝗵𝗼𝗿𝘁𝗲𝗻𝗲𝗱 𝗨𝗥𝗟. \n\n 𝗧𝗵𝗶𝘀 𝗕𝗼𝘁 𝗜𝘀 𝗠𝗮𝗱𝗲 𝗕𝘆 @CyberBoyAyush💖")
+        f"**Hey {message.chat.first_name}!**\n\n"
+        "Hey I Am GPlink By_Passer Don't Flood A Bot ")
 
 
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
@@ -33,13 +32,15 @@ async def link_handler(bot, message):
     link = message.matches[0].group(0)
     try:
         bypass_link = await gplinks_bypass(link) 
-        
-        
-        await message.reply(f'Here is your {bypass_link}')
+        link_by = bypass_link.get('url')
+        k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
+        await asyncio.sleep(9)
+        await k.delete()
+        await message.reply(f' **Here is your** : </b> \n\n {link_by}')
     except Exception as e:
         await message.reply(f'Error: {e}', quote=True)
                             
-def gplinks_bypass(url):
+async def gplinks_bypass(url):
     client = requests.Session()
     res = client.get(url)
     
@@ -61,7 +62,7 @@ def gplinks_bypass(url):
     final_url = f'{p.scheme}://{p.netloc}/links/go'
     res = client.post(final_url, data=data, headers=h).json()
 
-    return res['url']
+    return res
 
 
 bot.run()
