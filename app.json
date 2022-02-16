@@ -5,8 +5,8 @@
         "telegram",
         "gplink"
     ],
-    "website": "https://github.com/Mahesh0253/GPlink-bot",
-    "repository": "https://github.com/Mahesh0253/GPlink-bot",
+    "website": "https://github.com/Shivayt007/GPLinksBot",
+    "repository": "https://github.com/Shivayt007/GPLinksBot",
     "env": {
         "BOT_TOKEN": {
             "description": "Your bot token",
@@ -21,7 +21,7 @@
             "value": ""
         },
         "API_KEY": {
-            "description": "Get API key from https://gplinks.in/member/tools/api",
+            "description": "no need ",
             "required": false
         }
     },
