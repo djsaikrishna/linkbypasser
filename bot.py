@@ -32,7 +32,7 @@ async def start(bot, message):
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
     try:
-        bypass_link = await gplinks_bypass(link) 
+        bypass_link =  gplinks_bypass(link) 
         link_by = bypass_link.get('url')
         
         await message.reply(f'Here is your {link_by}')
