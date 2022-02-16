@@ -22,24 +22,40 @@ async def start(bot, message):
         "𝗜'𝗺 𝗚𝗣𝗹𝗶𝗻𝗸 𝗯𝗼𝘁. 𝗝𝘂𝘀𝘁 𝘀𝗲𝗻𝗱 𝗺𝗲 𝗹𝗶𝗻𝗸 𝗮𝗻𝗱 𝗴𝗲𝘁 𝗦𝗵𝗼𝗿𝘁𝗲𝗻𝗲𝗱 𝗨𝗥𝗟. \n\n 𝗧𝗵𝗶𝘀 𝗕𝗼𝘁 𝗜𝘀 𝗠𝗮𝗱𝗲 𝗕𝘆 @CyberBoyAyush💖")
 
 
-@bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private)
+@bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
     try:
-        short_link = await get_shortlink(link)
-        await message.reply(f'Here is your👉 [Short Link🎈]({short_link})', quote=True)
+        bypass_link = await gplinks_bypass(link) 
+        link_by = bypass_link.get('url')
+        
+        await message.reply(f'Here is your {link_by}')
     except Exception as e:
         await message.reply(f'Error: {e}', quote=True)
+                            
+def gplinks_bypass(url):
+    client = requests.Session()
+    res = client.get(url)
+    
+    h = { "referer": res.url }
+    res = client.get(url, headers=h)
+    
+    bs4 = BeautifulSoup(res.content, 'lxml')
+    inputs = bs4.find_all('input')
+    data = { input.get('name'): input.get('value') for input in inputs }
 
+    h = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'x-requested-with': 'XMLHttpRequest'
+    }
+    
+    time.sleep(10) # !important
+    
+    p = urlparse(url)
+    final_url = f'{p.scheme}://{p.netloc}/links/go'
+    res = client.post(final_url, data=data, headers=h).json()
 
-async def get_shortlink(link):
-    url = 'https://gplinks.in/api'
-    params = {'api': API_KEY, 'url': link}
-
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url, params=params, raise_for_status=True) as response:
-            data = await response.json()
-            return data["shortenedUrl"]
+    return res
 
 
 bot.run()
