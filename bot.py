@@ -54,8 +54,11 @@ async def link_handler(bot, message):
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if supported not in link:
-        await message.reply(f'**My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot**') 
-                                
+        try:
+          
+            await message.reply(f'**My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot**') 
+        except Exception as e:
+            await message.reply(f'Error: {e}', quote=True)                    
 async def gplinks_bypass(url):
     client = requests.Session()
     res = client.get(url)
