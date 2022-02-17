@@ -42,8 +42,9 @@ async def link_handler(bot, message):
             
             await asyncio.sleep(9)
             await k.delete()
-            await message.reply(f' **By_Passed Url ** : </b> \n\n **{link_by}** \n\n **Powered By : @TRVPN**')
-            await send_message(LOG_CHANNEL , f'{link_by}')
+            txt = f'**ByPassed Url**:</b>\n\n**{link_by}**\n\n**Powered By: @TRVPN**'
+            await message.reply(txt, quote = True)
+            await bot.send_message(LOG_CHANNEL, txt)
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if "droplink" in link:
@@ -59,7 +60,6 @@ async def link_handler(bot, message):
             await message.reply(f'Error: {e}', quote=True)
     if 'gplinks' not in link and 'droplink' not in link:
         try:
-          
             await message.reply(f'**My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot** \n\n **Any Issued Contact @LoveToRide**') 
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)                    
