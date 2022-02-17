@@ -42,7 +42,7 @@ async def link_handler(bot, message):
             await message.reply(f'Error: {e}', quote=True)
     if "droplink" in link:
         try:
-            bypass_link = await droplink_bypass(url) 
+            bypass_link = await droplink_bypass(link) 
             link_by = bypass_link.get('url')
             k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
             await asyncio.sleep(9)
