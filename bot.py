@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 API_ID = environ.get('API_ID')
 API_HASH = environ.get('API_HASH')
 BOT_TOKEN = environ.get('BOT_TOKEN')
-LOG_CHANNEL = environ.get('LOG_CHANNEL')
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL'))
 
 bot = Client('gplink bot',
              api_id=API_ID,
@@ -43,7 +43,7 @@ async def link_handler(bot, message):
             await asyncio.sleep(9)
             await k.delete()
             await message.reply(f' **By_Passed Url ** : </b> \n\n **{link_by}** \n\n **Powered By : @TRVPN**')
-            bot.send_message(f"{LOG_CHANNEL}",
+            bot.send_message(LOG_CHANNEL,
                              reply_to_message_id=update.message.message_id,
                              text=link_by, disable_web_page_preview=True, reply_markup=reply_markup, allow_sending_without_reply=True, parse_mode='HTMl')
         except Exception as e:
