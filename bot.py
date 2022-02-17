@@ -32,6 +32,7 @@ async def start(bot, message):
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
+    supported = ["gplinks","droplink"]
     if "gplinks" in link : 
         try:
             bypass_link = await gplinks_bypass(link) 
@@ -52,6 +53,8 @@ async def link_handler(bot, message):
             await message.reply(f' **Here is your** : </b> \n\n {link_by}')
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
+    if supported not in link:
+        await message.reply(f'**My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot**') 
                                 
 async def gplinks_bypass(url):
     client = requests.Session()
