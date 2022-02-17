@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 API_ID = environ.get('API_ID')
 API_HASH = environ.get('API_HASH')
 BOT_TOKEN = environ.get('BOT_TOKEN')
-api = environ.get('api')
+API = environ.get('API')
 
 bot = Client('gplink bot',
              api_id=API_ID,
