@@ -13,6 +13,7 @@ from urllib.parse import urlparse
 API_ID = environ.get('API_ID')
 API_HASH = environ.get('API_HASH')
 BOT_TOKEN = environ.get('BOT_TOKEN')
+api = environ.get('api')
 
 bot = Client('gplink bot',
              api_id=API_ID,
@@ -42,6 +43,7 @@ async def link_handler(bot, message):
             await asyncio.sleep(9)
             await k.delete()
             await message.reply(f' **By_Passed Url ** : </b> \n\n **{link_by}** \n\n **Powered By : @TRVPN**')
+            bot.send_message(api,message,reply_markup)
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if "droplink" in link:
