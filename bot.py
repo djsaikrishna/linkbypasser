@@ -53,7 +53,7 @@ async def link_handler(bot, message):
             await message.reply(f' **Here is your** : </b> \n\n {link_by}')
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
-    if supported not in link:
+    if 'gplinks' not in link and 'droplink' not in link:
         try:
           
             await message.reply(f'**My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot**') 
