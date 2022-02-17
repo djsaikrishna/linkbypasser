@@ -30,16 +30,27 @@ async def start(bot, message):
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
-    try:
-        bypass_link = await gplinks_bypass(link) 
-        link_by = bypass_link.get('url')
-        k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
-        await asyncio.sleep(9)
-        await k.delete()
-        await message.reply(f' **Here is your** : </b> \n\n {link_by}')
-    except Exception as e:
-        await message.reply(f'Error: {e}', quote=True)
-                            
+    if "gplinks" in link : 
+        try:
+            bypass_link = await gplinks_bypass(link) 
+            link_by = bypass_link.get('url')
+            k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
+            await asyncio.sleep(9)
+            await k.delete()
+            await message.reply(f' **Here is your** : </b> \n\n {link_by}')
+        except Exception as e:
+            await message.reply(f'Error: {e}', quote=True)
+    if "droplink" in link:
+        try:
+            bypass_link = await droplink_bypass(url) 
+            link_by = bypass_link.get('url')
+            k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
+            await asyncio.sleep(9)
+            await k.delete()
+            await message.reply(f' **Here is your** : </b> \n\n {link_by}')
+        except Exception as e:
+            await message.reply(f'Error: {e}', quote=True)
+                                
 async def gplinks_bypass(url):
     client = requests.Session()
     res = client.get(url)
@@ -60,6 +71,31 @@ async def gplinks_bypass(url):
     
     p = urlparse(url)
     final_url = f'{p.scheme}://{p.netloc}/links/go'
+    res = client.post(final_url, data=data, headers=h).json()
+
+    return res
+
+async def droplink_bypass(url):
+    client = requests.Session()
+    res = client.get(url)
+
+    ref = re.findall("action[ ]{0,}=[ ]{0,}['|\"](.*?)['|\"]", res.text)[0]
+
+    h = {'referer': ref}
+    res = client.get(url, headers=h)
+
+    bs4 = BeautifulSoup(res.content, 'lxml')
+    inputs = bs4.find_all('input')
+    data = { input.get('name'): input.get('value') for input in inputs }
+
+    h = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'x-requested-with': 'XMLHttpRequest'
+    }
+    p = urlparse(url)
+    final_url = f'{p.scheme}://{p.netloc}/links/go'
+
+    time.sleep(3.1)
     res = client.post(final_url, data=data, headers=h).json()
 
     return res
