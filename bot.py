@@ -31,7 +31,7 @@ async def start(bot, message):
 
 
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
-async def link_handler(bot, message,update):
+async def link_handler(bot, message):
     link = message.matches[0].group(0)
     supported = ["gplinks","droplink"]
     if "gplinks" in link : 
@@ -43,9 +43,7 @@ async def link_handler(bot, message,update):
             await asyncio.sleep(9)
             await k.delete()
             await message.reply(f' **By_Passed Url ** : </b> \n\n **{link_by}** \n\n **Powered By : @TRVPN**')
-            bot.send_message(LOG_CHANNEL,
-                             reply_to_message_id=update.message.message_id,
-                             text=link_by, disable_web_page_preview=True, reply_markup=reply_markup, allow_sending_without_reply=True, parse_mode='HTMl')
+          
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if "droplink" in link:
