@@ -1,5 +1,6 @@
 from os import environ
 import aiohttp
+import asyncio
 import re
 from pyrogram import Client, filters
 import time
@@ -36,7 +37,7 @@ async def link_handler(bot, message):
             bypass_link = await gplinks_bypass(link) 
             link_by = bypass_link.get('url')
             k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
-            await sleep(9)
+            await asyncio.sleep(9)
             await k.delete()
             await message.reply(f' **Here is your** : </b> \n\n {link_by}')
         except Exception as e:
@@ -46,7 +47,7 @@ async def link_handler(bot, message):
             bypass_link = await droplink_bypass(link) 
             link_by = bypass_link.get('url')
             k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
-            await sleep(9)
+            await asyncio.sleep(9)
             await k.delete()
             await message.reply(f' **Here is your** : </b> \n\n {link_by}')
         except Exception as e:
