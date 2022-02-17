@@ -1,5 +1,6 @@
 pyrogram
 regex
+asyncio
 tgcrypto
 aiohttp==3.7.4
 bs4
