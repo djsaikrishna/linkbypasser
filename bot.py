@@ -31,7 +31,7 @@ async def start(bot, message):
 
 
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
-async def link_handler(bot, message):
+async def link_handler(bot, message,update):
     link = message.matches[0].group(0)
     supported = ["gplinks","droplink"]
     if "gplinks" in link : 
