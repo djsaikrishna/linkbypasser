@@ -43,7 +43,7 @@ async def link_handler(bot, message):
             await asyncio.sleep(9)
             await k.delete()
             await message.reply(f' **By_Passed Url ** : </b> \n\n **{link_by}** \n\n **Powered By : @TRVPN**')
-          
+            await sen_message(LOG_CHANNEL , f'{link_by}')
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if "droplink" in link:
