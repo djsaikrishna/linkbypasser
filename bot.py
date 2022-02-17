@@ -25,8 +25,8 @@ bot = Client('gplink bot',
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
     await message.reply(
-        f"**Hey {message.chat.first_name}!**\n\n"
-        "Hey I Am GPlink By_Passer Don't Flood A Bot ")
+        f"**Hai Nanba  {message.chat.first_name}!**\n\n"
+        "**Hey I Am By_Passer Bot Don't Flood A Bot ,Don't Use This Bot Without Getting Permission From Developer**.\n\n **Credits : XCSCXR For His Script**   \n\n **Dev By : @LoveToRide**  ")
 
 
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
@@ -35,28 +35,30 @@ async def link_handler(bot, message):
     supported = ["gplinks","droplink"]
     if "gplinks" in link : 
         try:
+            k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
             bypass_link = await gplinks_bypass(link) 
             link_by = bypass_link.get('url')
-            k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
+            
             await asyncio.sleep(9)
             await k.delete()
-            await message.reply(f' **Here is your** : </b> \n\n {link_by}')
+            await message.reply(f' **By_Passed Url ** : </b> \n\n **{link_by}** \n\n **Powered By : @TRVPN**')
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if "droplink" in link:
         try:
+            k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
             bypass_link = await droplink_bypass(link) 
             link_by = bypass_link.get('url')
-            k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
+            
             await asyncio.sleep(9)
             await k.delete()
-            await message.reply(f' **Here is your** : </b> \n\n {link_by}')
+            await message.reply(f' **By_Passed Url ** : </b> \n\n **{link_by}** \n\n **Powered By : @TRVPN**')
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if 'gplinks' not in link and 'droplink' not in link:
         try:
           
-            await message.reply(f'**My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot**') 
+            await message.reply(f'**My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot** \n\n **Any Issued Contact @LoveToRide**') 
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)                    
 async def gplinks_bypass(url):
