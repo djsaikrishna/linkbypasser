@@ -29,7 +29,7 @@ async def start(bot, message):
         f"**Hai Nanba  {message.chat.first_name}!**\n\n"
         "**Hey I Am By_Passer Bot Don't Flood A Bot ,Don't Use This Bot Without Getting Permission From Developer**.\n\n **Credits : XCSCXR For His Script**   \n\n **Dev By : @LoveToRide**  ")
 
-count = 0 
+
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
@@ -39,12 +39,12 @@ async def link_handler(bot, message):
             k = await message.reply(f"**Please Wait , Bot Is processing The Link {message.text}**")
             bypass_link = await gplinks_bypass(link) 
             link_by = bypass_link.get('url')
-            count += 1
+          
             
             
             await asyncio.sleep(9)
             await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n\n➡️**\nTotal Links = {count}**'            
+            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**'            
             await message.reply(txt, quote = True)
             await bot.send_message(LOG_CHANNEL, txt)
             
@@ -52,14 +52,14 @@ async def link_handler(bot, message):
             await message.reply(f'Error: {e}', quote=True)
     if "droplink" in link:
         try:
-            count += 1
+           
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
             bypass_link = await droplink_bypass(link) 
             link_by = bypass_link.get('url')
             
             await asyncio.sleep(9)
             await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**\nTotal Links = {count}**'
+            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**'
             await message.reply(txt, quote = True)
             await bot.send_message(LOG_CHANNEL, txt)
         except Exception as e:
