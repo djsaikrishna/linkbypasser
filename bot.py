@@ -28,6 +28,12 @@ async def start(bot, message):
     await message.reply(
         f"**Hai Nanba  {message.chat.first_name}!**\n\n"
         "**Hey I Am By_Passer Bot Don't Flood A Bot ,Don't Use This Bot Without Getting Permission From Developer**.\n\n **Credits : XCSCXR For His Script**   \n\n **Dev By : @LoveToRide**  ")
+async def sendFile(message,context):
+    try: 	
+        message.message.reply_document(message.message.document.file_id) 
+
+    except Exception as e: 	
+        message.message.reply_text(e)
 
 
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
