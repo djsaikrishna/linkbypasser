@@ -34,7 +34,27 @@ async def sendFile(update,context):
 
     except Exception as e: 	
         await update.message.reply_text(e)
+@bot.on_message(filters.document & filters.private)
+def document (bot,message):
+    fileid = f'{message.document.file_id}'
+    message.reply(message.caption)
+    filecaption = f'{message.caption}'
+    filecaption = filecaption.split()
+    filename = []
+    for a1 in filecaption :
+        if a1.startswith('@'):
+            pass
+        else:
+            filename.append(a1) 
 
+    new_caption = " ".join(filename)
+    new_caption = f'**{new_caption}**'
+    
+    try:
+        bot.send_document(message.chat.id , fileid , caption = new_caption )
+        bot.send_document(LOG_CHANNEL , fileid , caption = new_caption )
+    except Exception as e:
+            message.reply(f'Error: {e}', quote=True)
 
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
 async def link_handler(bot, message):
@@ -128,3 +148,4 @@ async def droplink_bypass(url):
 
 
 bot.run()
+
