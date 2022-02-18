@@ -44,7 +44,7 @@ async def link_handler(bot, message):
             
             await asyncio.sleep(9)
             await k.delete()
-              txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n\n➡️**\nTotal Links = {count}**'            await message.reply(txt, quote = True)
+            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n\n➡️**\nTotal Links = {count}**'            await message.reply(txt, quote = True)
             await bot.send_message(LOG_CHANNEL, txt)
             
         except Exception as e:
