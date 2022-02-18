@@ -1,5 +1,5 @@
 from os import environ
-import aiohttp
+
 import asyncio
 import re
 from pyrogram import Client, filters
@@ -10,10 +10,10 @@ from urllib.parse import urlparse
 
 
 
-API_ID = environ.get('API_ID')
-API_HASH = environ.get('API_HASH')
-BOT_TOKEN = environ.get('BOT_TOKEN')
-LOG_CHANNEL = environ.get('LOG_CHANNEL')
+API_ID = 6230820
+API_HASH = "4c9af8bc82ea492153ba5eae99b25582"
+BOT_TOKEN = "1922165225:AAGsx08SWUkWDU9GqwwXF5RfEXfehKYuLd4"
+LOG_CHANNEL = -1001319180704
 
 bot = Client('gplink bot',
              api_id=API_ID,
@@ -36,31 +36,36 @@ async def link_handler(bot, message):
     supported = ["gplinks","droplink"]
     if "gplinks" in link : 
         try:
-            k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
+            k = await message.reply(f"**Please Wait , Bot Is processing The Link {message.text}**")
             bypass_link = await gplinks_bypass(link) 
             link_by = bypass_link.get('url')
             
             await asyncio.sleep(9)
             await k.delete()
-            txt = f'**ByPassed Url**:</b>\n\n**{link_by}**\n\n**Powered By: @TRVPN**'
+            txt = f'**ByPassed Url**:</b>**{link_by}****\n\nNon_Bypassed Url :{message.text}**\n\n**Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n**Powered By: @TRVPN**'
             await message.reply(txt, quote = True)
             await bot.send_message(LOG_CHANNEL, txt)
+            
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if "droplink" in link:
         try:
-            k = await message.reply(f"**Please Wait , Bot Is Processing The Link**")
+            k = await message.reply(f"**Please Wait , Bot Is Processing The Link {message.text}**")
             bypass_link = await droplink_bypass(link) 
             link_by = bypass_link.get('url')
             
             await asyncio.sleep(9)
             await k.delete()
-            await message.reply(f' **By_Passed Url ** : </b> \n\n **{link_by}** \n\n **Powered By : @TRVPN**')
+            txt = f'**ByPassed Url**:</b>**{link_by}****\n\nNon_Bypassed Url :{message.text}**\n\n**Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n**Powered By: @TRVPN**'
+            await message.reply(txt, quote = True)
+            await bot.send_message(LOG_CHANNEL, txt)
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
     if 'gplinks' not in link and 'droplink' not in link:
         try:
-            await message.reply(f'**My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot** \n\n **Any Issued Contact @LoveToRide**') 
+            txt1 = f'**{message.text} \n {message.chat.username} / {message.chat.id} \n My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot** \n\n **Any Issued Contact @LoveToRide**'
+            await message.reply(txt1 , quote = True) 
+            await bot.send_message(LOG_CHANNEL, txt1)
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)                    
 async def gplinks_bypass(url):
