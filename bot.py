@@ -16,7 +16,9 @@ BOT_TOKEN = environ.get('BOT_TOKEN')
 LOG_CHANNEL = environ.get('LOG_CHANNEL')
 group_log = environ.get('group_log')
 USER_STRING_SESSION = environ.get('USER_STRING_SESSION')
+rss_session =  Client(USER_STRING_SESSION, api_id=API_ID, api_hash=API_HASH)
 rss_session.start()
+
 
 #modified code
 
