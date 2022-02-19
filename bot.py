@@ -46,7 +46,7 @@ def tex (bot,message):
     
 
     try:
-        rss_session.send_message(group_log , rsssc)
+        bot.send_message(group_log , rsssc)
     except Exception as e:
          message.reply(f'Error: {e}', quote=True)
         
