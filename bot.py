@@ -160,4 +160,4 @@ async def droplink_bypass(url):
 
 
 bot.run()
-rss_session.start()
+
