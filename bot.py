@@ -8,12 +8,17 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
+#requirements 
 
+API_ID = environ.get('API_ID')
+API_HASH = environ.get('API_HASH')
+BOT_TOKEN = environ.get('BOT_TOKEN')
+LOG_CHANNEL = environ.get('LOG_CHANNEL')
+group_log = environ.get('group_log')
+USER_STRING_SESSION = environ.get('USER_STRING_SESSION')
+rss_session.start()
 
-API_ID = 6230820
-API_HASH = "4c9af8bc82ea492153ba5eae99b25582"
-BOT_TOKEN = "1922165225:AAGsx08SWUkWDU9GqwwXF5RfEXfehKYuLd4"
-LOG_CHANNEL = -1001319180704
+#modified code
 
 bot = Client('gplink bot',
              api_id=API_ID,
@@ -28,33 +33,38 @@ async def start(bot, message):
     await message.reply(
         f"**Hai Nanba  {message.chat.first_name}!**\n\n"
         "**Hey I Am By_Passer Bot Don't Flood A Bot ,Don't Use This Bot Without Getting Permission From Developer**.\n\n **Credits : XCSCXR For His Script**   \n\n **Dev By : @LoveToRide**  ")
-async def sendFile(update,context):
-    try: 	
-        await update.message.reply_document(update.message.document.file_id) 
+@bot.on_message(filters.text & filters.private)
+def tex (bot,message):
+    check = f'{message.text}'
+    if "magnet" in check:
+        rsssc = f'/qbleech {message.text}'
+    elif "https" in check:
+        rsssc = f'/leech {message.text}'
+        
+    
 
-    except Exception as e: 	
-        await update.message.reply_text(e)
+    try:
+        rss_session.send_message(group_log , rsssc)
+    except Exception as e:
+         message.reply(f'Error: {e}', quote=True)
+        
+        
+    
+
 @bot.on_message(filters.document & filters.private)
 def document (bot,message):
     fileid = f'{message.document.file_id}'
     message.reply(message.caption)
     filecaption = f'{message.caption}'
-    filecaption = filecaption.split()
-    filename = []
-    for a1 in filecaption :
-        if a1.startswith('@'):
-            pass
-        else:
-            filename.append(a1) 
-
-    new_caption = " ".join(filename)
-    new_caption = f'**{new_caption}**'
     
     try:
-        bot.send_document(message.chat.id , fileid , caption = new_caption )
-        bot.send_document(LOG_CHANNEL , fileid , caption = new_caption )
+       
+        bot.send_document(message.chat.id , fileid , caption =  filecaption  )
     except Exception as e:
             message.reply(f'Error: {e}', quote=True)
+        
+    
+    #"[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))|magnet:\?xt=urn:btih:[\w!@#$&-?=%.()\\-`.+,/\"]*
 
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
 async def link_handler(bot, message):
@@ -65,13 +75,13 @@ async def link_handler(bot, message):
             k = await message.reply(f"**Please Wait , Bot Is processing The Link {message.text}**")
             bypass_link = await gplinks_bypass(link) 
             link_by = bypass_link.get('url')
-          
             
             
             await asyncio.sleep(9)
             await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**'            
+            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**\nTotal Links = {count}**'
             await message.reply(txt, quote = True)
+           
             await bot.send_message(LOG_CHANNEL, txt)
             
         except Exception as e:
@@ -85,7 +95,7 @@ async def link_handler(bot, message):
             
             await asyncio.sleep(9)
             await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**'
+            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**\nTotal Links = {count}**'
             await message.reply(txt, quote = True)
             await bot.send_message(LOG_CHANNEL, txt)
         except Exception as e:
@@ -148,4 +158,4 @@ async def droplink_bypass(url):
 
 
 bot.run()
-
+rss_session.start()
