@@ -38,10 +38,10 @@ async def start(bot, message):
 @bot.on_message(filters.text & filters.private)
 def tex (bot,message):
     check = f'{message.text}'
-    if "magnet" in check:
-        rsssc = f'/qbleech {message.text}'
-    elif "https" in check:
-        rsssc = f'/leech {message.text}'
+    rsssc = f'/qbleech {check}'
+    
+      
+  
         
     
 
