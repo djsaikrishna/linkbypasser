@@ -150,7 +150,7 @@ for link in iframe_src_link:
     video_links.append(ind(begining, end, script_link_contenent)[:-1])
     #print(f"video_links: {ind(begining, end, script_link_contenent)[:-1]}\n")
     
-f = open(tmp_path,'a+')
+f = open(tmp_path,'r')
 ignore_list=[]
 for line in open(tmp_path,'r').readlines():
     ignore_list.append(line.strip())
