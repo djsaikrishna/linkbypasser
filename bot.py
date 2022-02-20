@@ -52,16 +52,14 @@ home_url= 'http://tamilyogi.best/category/tamilyogi-full-movie-online/'
 
 # get optional arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('-path', type = str, default='/opt')
+parser.add_argument('-path', type = str, default='/app/.heroku/python/lib/python3.7')
 parser.add_argument('-number', type=int, default=1)
-parser.add_argument('-tmp_path', type=str, default='/opt')
+parser.add_argument('-tmp_path', type=str, default='/app/.heroku/python/lib/python3.7/')
 args = parser.parse_args()
 
 number_of_videos = args.number
 download_link_path = args.path
-tmp_path = args.tmp_path + '\dawnloaded_list.txt'
-tmp_path = os.path.join(args.tmp_path,'\\dawnloaded_list.txt')
-os.makedirs(tmp_path) 
+tmp_path = args.tmp_path + '\dawnloaded_list.txt' 
 # 1.Get file names from directory
 def file_list():
     file_names=os.listdir(download_link_path)
@@ -151,7 +149,7 @@ for link in iframe_src_link:
     video_links.append(ind(begining, end, script_link_contenent)[:-1])
     #print(f"video_links: {ind(begining, end, script_link_contenent)[:-1]}\n")
     
-f = open(tmp_path,'r')
+f = open(tmp_path,'+a')
 ignore_list=[]
 for line in open(tmp_path,'r').readlines():
     ignore_list.append(line.strip())
