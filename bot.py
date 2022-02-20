@@ -60,7 +60,7 @@ args = parser.parse_args()
 number_of_videos = args.number
 download_link_path = args.path
 tmp_path = args.tmp_path + '\dawnloaded_list.txt'
-tmp_path = os.path.join(args.tmp_path,'\dawnloaded_list.txt')
+tmp_path = os.path.join(args.tmp_path,'\\dawnloaded_list.txt')
 
 # 1.Get file names from directory
 def file_list():
