@@ -8,3 +8,6 @@ lxml
 urllib3
 requests
 url-parser
+gazpacho
+clint
+BeautifulSoup4 
