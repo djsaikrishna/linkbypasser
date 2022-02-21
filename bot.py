@@ -166,7 +166,7 @@ for title, video_link in zip_object:
         ignored_names.append(title)
         continue
     names.append(title)
-    # download_file(video_link, download_link_path, title)
+    download_file(video_link, download_link_path, title)
     with open(tmp_path,'a') as file:
         file.write(full_title + '\n')
 
