@@ -84,7 +84,7 @@ def download_file(url, path, title):
     filename = path + "/" + title + ".mp4"
     r = requests.get(url, stream=True)
     with open(filename, 'wb') as f:
-        total_length = r.headers.get('content-length')
+        total_length = 200000
         print("Downloading Movie:", title)
         print(total_length, url, path, title)
         # for print a progress bar during the dawnload
