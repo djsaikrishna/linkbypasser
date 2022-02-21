@@ -71,10 +71,13 @@ def ind(begining, end, contenent):
     idx_begining = contenent.index(begining)
     idx_end = contenent.index(end)
 
-    res = ''
+    res1 = ''
     for idx in range(idx_begining + len(begining) + 1, idx_end):
-        res = res + contenent[idx]
+        res1 = res + contenent[idx]
     print("The extracted string : \n" + res,"\n")
+    res = "http://cdn54.vidmx.xyz/h7tocecoamlbu3tf6rvtllnq2vx7oswahmidcatlx4aot3irqj5dg4zknsga/TamilYogi.vip_-_Enemy_(2021)_Tamil_Proper_TRUE_HD_1080p_AVC_(DD5_1_192Kbps_&_AAC)_2_5GB_ESub_LQ_240p.mp4"
+     print("The extracted string : \n" + res,"\n")
+
     return res
 
 # Download the  video
