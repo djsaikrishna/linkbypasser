@@ -178,6 +178,7 @@ else:
     print(f"Number of movie dawnloaded during this execution: {len(names)}\n")
     for i in names:
         print("Downloaded Movie:", i)
+        print("path:",tmp_path)
 
 for i in ignored_names:
     print("Ignored Movie:", i)
