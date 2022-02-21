@@ -52,7 +52,7 @@ home_url= 'http://tamilyogi.best/category/tamilyogi-full-movie-online/'
 
 # get optional arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('-path', type = str, default='/app/.heroku/python/lib/python3.7')
+parser.add_argument('-path', type = str, default='/app/.heroku/python/lib/python3.7/')
 parser.add_argument('-number', type=int, default=1)
 parser.add_argument('-tmp_path', type=str, default='/app/.heroku/python/lib/python3.7/')
 args = parser.parse_args()
