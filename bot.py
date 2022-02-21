@@ -48,7 +48,7 @@ import urllib
 
 
 # default var
-home_url= 'http://tamilyogi.best/category/tamilyogi-full-movie-online/'
+home_url= 'http://tamilyogi.best/category/tamilyogi-dubbed-movies-online/'
 
 # get optional arguments
 parser = argparse.ArgumentParser()
