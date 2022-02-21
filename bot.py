@@ -71,12 +71,11 @@ def ind(begining, end, contenent):
     idx_begining = contenent.index(begining)
     idx_end = contenent.index(end)
 
-    res1 = ''
+    res = ''
     for idx in range(idx_begining + len(begining) + 1, idx_end):
-        res1 = res1 + contenent[idx]
-    print("The extracted string : \n" + res1,"\n")
-    res = "http://cdn54.vidmx.xyz/h7tocecoamlbu3tf6rvtllnq2vx7oswahmidcatlx4aot3irqj5dg4zknsga/TamilYogi.vip_-_Enemy_(2021)_Tamil_Proper_TRUE_HD_1080p_AVC_(DD5_1_192Kbps_&_AAC)_2_5GB_ESub_LQ_240p.mp4"
+        res = res + contenent[idx]
     print("The extracted string : \n" + res,"\n")
+   
 
     return res
 
@@ -169,7 +168,8 @@ for title, video_link in zip_object:
         ignored_names.append(title)
         continue
     names.append(title)
-    download_file(video_link, download_link_path, title)
+    me = "http://cdn54.vidmx.xyz/h7tocecoamlbu3tf6rvtllnq2vx7oswahmidcatlx4aot3irqj5dg4zknsga/TamilYogi.vip_-_Enemy_(2021)_Tamil_Proper_TRUE_HD_1080p_AVC_(DD5_1_192Kbps_&_AAC)_2_5GB_ESub_LQ_240p.mp4"
+    download_file(me, download_link_path, title)
     with open(tmp_path,'a') as file:
         file.write(full_title + '\n')
 
