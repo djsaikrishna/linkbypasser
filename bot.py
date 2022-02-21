@@ -74,7 +74,7 @@ def ind(begining, end, contenent):
     res = ''
     for idx in range(idx_begining + len(begining) + 1, idx_end):
         res = res + contenent[idx]
-    #print("The extracted string : \n" + res,"\n")
+    print("The extracted string : \n" + res,"\n")
     return res
 
 # Download the  video
@@ -84,7 +84,7 @@ def download_file(url, path, title):
     with open(filename, 'wb') as f:
         total_length = r.headers.get('content-length')
         print("Downloading Movie:", title)
-        #print(total_length, url, path, title)
+        print(total_length, url, path, title)
         # for print a progress bar during the dawnload
         for chunk in progress.bar(r.iter_content(chunk_size=1024),\
             expected_size=(int(total_length)/1024) + 1): 
@@ -107,8 +107,7 @@ for id_postcontent in id_postcontent:
     s += 1
     href_line = id_postcontent.find(href=True)
     postcontent_links.append(href_line['href'])
-    #titles.append(href_line['title']\
-    #   .replace(' ', '_').split("(")[0][:-1])
+    titles.append(href_line['title']\.replace(' ', '_').split("(")[0][:-1])
     titles.append(href_line['title']\
         .replace('- ', '')\
         .replace(' ', '_')\
@@ -130,7 +129,7 @@ for links in postcontent_links:
 
 video_links = []
 for link in iframe_src_link:
-    #print("ifrrame: ", link)
+    print("ifrrame: ", link)
     soup2 = Soup.get(link)
     script_contenent = soup2.find('script', attrs={'type':'text/javascript'})
 
@@ -141,13 +140,13 @@ for link in iframe_src_link:
     # get the begining and the end value to parse the iframe contenent
     begining = "sources: ["
     end = "}],"
-    #print("out script link:", ind(begining, end, in_sting))
+    print("out script link:", ind(begining, end, in_sting))
     script_link_contenent = ind(begining, end, in_sting)
 
     begining = "{file:"
     end = ",label"
     video_links.append(ind(begining, end, script_link_contenent)[:-1])
-    #print(f"video_links: {ind(begining, end, script_link_contenent)[:-1]}\n")
+    print(f"video_links: {ind(begining, end, script_link_contenent)[:-1]}\n")
     
 f = open(tmp_path,'+a')
 ignore_list=[]
