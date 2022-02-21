@@ -48,7 +48,7 @@ import urllib
 
 
 # default var
-home_url= 'http://tamilyogi.best/category/tamilyogi-dubbed-movies-online/'
+home_url= 'http://tamilyogi.best/category/tamilyogi-full-movie-online/'
 
 # get optional arguments
 parser = argparse.ArgumentParser()
@@ -107,7 +107,8 @@ for id_postcontent in id_postcontent:
     s += 1
     href_line = id_postcontent.find(href=True)
     postcontent_links.append(href_line['href'])
-    titles.append(href_line['title']\.replace(' ', '_').split("(")[0][:-1])
+    titles.append(href_line['title']\
+        .replace(' ', '_').split("(")[0][:-1])
     titles.append(href_line['title']\
         .replace('- ', '')\
         .replace(' ', '_')\
@@ -124,7 +125,7 @@ for links in postcontent_links:
     entry= soup1.find(class_='entry')
     iframe_link=entry.iframe.attrs['src']
     iframe_src_link.append(iframe_link)
-    #print("link len: ", len(iframe_src_link))
+    print("link len: ", len(iframe_src_link))
 
 
 video_links = []
