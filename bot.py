@@ -179,6 +179,7 @@ else:
     for i in names:
         print("Downloaded Movie:", i)
         print("path:",tmp_path)
+        print("file:",download_link_path)
 
 for i in ignored_names:
     print("Ignored Movie:", i)
