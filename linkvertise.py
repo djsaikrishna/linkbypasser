@@ -31,28 +31,6 @@ def decrypt_url(code):
     return decrypted.decode('utf-8')
 
 
-
-async def adfly_bypass(url):
-    res = requests.get(url).text
-
-    out = {'error': False, 'src_url': url}
-
-    try:
-        ysmm = re.findall("ysmm\s+=\s+['|\"](.*?)['|\"]", res)[0]
-    except:
-        out['error'] = True
-        return out
-
-    url = decrypt_url(ysmm)
-
-    if re.search(r'go\.php\?u\=', url):
-        url = b64decode(re.sub(r'(.*?)u=', '', url)).decode()
-    elif '&dest=' in url:
-        url = unquote(re.sub(r'(.*?)dest=', '', url))
-
-    out['bypassed_url'] = url
-
-    return out
 async def lv_bypass(url):
     client = requests.Session()
     
