@@ -46,252 +46,114 @@ import argparse
 from lxml import html
 import urllib
 
-
-# default var
-home_url= 'http://tamilyogi.best/category/tamilyogi-full-movie-online/'
-
-# get optional arguments
-parser = argparse.ArgumentParser()
-parser.add_argument('-path', type = str, default='/app/.heroku/python/lib/python3.7/')
-parser.add_argument('-number', type=int, default=1)
-parser.add_argument('-tmp_path', type=str, default='/app/.heroku/python/lib/python3.7/')
-args = parser.parse_args()
-
-number_of_videos = args.number
-download_link_path = args.path
-tmp_path = args.tmp_path + '\dawnloaded_list.txt' 
-# 1.Get file names from directory
-def file_list():
-    file_names=os.listdir(download_link_path)
-    return file_names
-
-# Split and get text between two substring
-# TODO may be can use json format to split inseast the function
-def ind(begining, end, contenent):
-    idx_begining = contenent.index(begining)
-    idx_end = contenent.index(end)
-
-    res = ''
-    for idx in range(idx_begining + len(begining) + 1, idx_end):
-        res = res + contenent[idx]
-    print("The extracted string : \n" + res,"\n")
-   
-
-    return res
-
-# Download the  video
-def download_file(url, path, title):
-    filename = path + "/" + title + ".mp4"
-    r = requests.get(url, stream=True)
-    with open(filename, 'wb') as f:
-        total_length = 200000
-        print("Downloading Movie:", title)
-        print(total_length, url, path, title)
-        # for print a progress bar during the dawnload
-        for chunk in progress.bar(r.iter_content(chunk_size=1024),\
-            expected_size=(int(total_length)/1024) + 1): 
-             if chunk: # filter out keep-alive new chunks
-                f.write(chunk)    
-                f.flush()
-        print ("Downloading Done\n")
-        f.close()
-
-# Get request contenent
-page = requests.get(home_url)
-
-soup = BeautifulSoup(page.content, 'html.parser')
-id_postcontent = soup.find_all(class_='postcontent')
-
-s = 0
-titles = []
-postcontent_links = []
-for id_postcontent in id_postcontent:
-    s += 1
-    href_line = id_postcontent.find(href=True)
-    postcontent_links.append(href_line['href'])
-    titles.append(href_line['title']\
-        .replace(' ', '_').split("(")[0][:-1])
-    titles.append(href_line['title']\
-        .replace('- ', '')\
-        .replace(' ', '_')\
-        .replace(')', '')\
-        .replace('(', '')\
-        .replace('_Watch_Online', ''))
-    if s == number_of_videos:
-        break
-
-iframe_src_link = []
-for links in postcontent_links:
-    page1 = requests.get(links)
-    soup1 = BeautifulSoup(page1.content, 'html.parser')
-    entry= soup1.find(class_='entry')
-    iframe_link=entry.iframe.attrs['src']
-    iframe_src_link.append(iframe_link)
-    print("link len: ", len(iframe_src_link))
-
-
-video_links = []
-for link in iframe_src_link:
-    print("ifrrame: ", link)
-    soup2 = Soup.get(link)
-    script_contenent = soup2.find('script', attrs={'type':'text/javascript'})
-
-    in_sting = ""
-    for i in script_contenent:
-        in_sting += str(i)
-    
-    # get the begining and the end value to parse the iframe contenent
-    begining = "sources: ["
-    end = "}],"
-    print("out script link:", ind(begining, end, in_sting))
-    script_link_contenent = ind(begining, end, in_sting)
-
-    begining = "{file:"
-    end = ",label"
-    video_links.append(ind(begining, end, script_link_contenent)[:-1])
-    print(f"video_links: {ind(begining, end, script_link_contenent)[:-1]}\n")
-    
-f = open(tmp_path,'+a')
-ignore_list=[]
-for line in open(tmp_path,'r').readlines():
-    ignore_list.append(line.strip())
-
-# if one of the movie parsed from url alredy exists in local dawnload path,
-# this movie will not be dawnloaded
-names =  []
-ignored_names =  []
-zip_object = zip(titles, video_links)
-for title, video_link in zip_object:
-    file_name_list = file_list()
-    full_title = title + ".mp4"
-    if (full_title in file_list()) or (full_title in ignore_list):
-        ignored_names.append(title)
-        continue
-    names.append(title)
-    me = "http://cdn54.vidmx.xyz/h7tocecoamlbu3tf6rvtllnq2vx7oswahmidcatlx4aot3irqj5dg4zknsga/TamilYogi.vip_-_Enemy_(2021)_Tamil_Proper_TRUE_HD_1080p_AVC_(DD5_1_192Kbps_&_AAC)_2_5GB_ESub_LQ_240p.mp4"
-    download_file(me, download_link_path, title)
-    with open(tmp_path,'a') as file:
-        file.write(full_title + '\n')
-
-# to have a log during the each execution from cron
-print('Default Link Length: ', len(titles))
-if len(names) == 0:
-    print("No movie dawnloaded during this execution (Alredy Exists)\n")
-else:
-    print(f"Number of movie dawnloaded during this execution: {len(names)}\n")
-    for i in names:
-        print("Downloaded Movie:", i)
-        print("path:",tmp_path)
-        print("file:", os.listdir(download_link_path))
-  
-
-for i in ignored_names:
-    print("Ignored Movie:", i)
-
-
-
-@bot.on_message(filters.command('start') & filters.private)
-async def start(bot, message):
-    await message.reply(
-        f"**Hai Nanba  {message.chat.first_name}!**\n\n"
-        "**Hey I Am By_Passer Bot Don't Flood A Bot ,Don't Use This Bot Without Getting Permission From Developer**.\n\n **Credits : XCSCXR For His Script**   \n\n **Dev By : @LoveToRide**  ")
-@bot.on_message(filters.text & filters.private)
-def tex (bot,message):
-    check = f'{message.text}'
-    rsssc = f'/qbleech {check}'
-    
-      
-  
-        
-    
-
-    try:
-        rss_session.send_message(group_log , rsssc)
-    except Exception as e:
-         message.reply(f'Error: {e}', quote=True)
-        
-        
-    
-
-@bot.on_message(filters.document & filters.private)
-def document (bot,message):
-    fileid = f'{message.document.file_id}'
-    message.reply(message.caption)
-    filecaption = f'{message.caption}'
-    
-    try:
-       
-        bot.send_document(message.chat.id , fileid , caption =  filecaption  )
-    except Exception as e:
-            message.reply(f'Error: {e}', quote=True)
-        
-    
-    #"[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))|magnet:\?xt=urn:btih:[\w!@#$&-?=%.()\\-`.+,/\"]*
-
-@bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private) 
+@bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private)
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
-    supported = ["gplinks","droplink"]
-    if "gplinks" in link : 
+    supported = ["gplinks", "droplink"]
+    if "gplinks" in link:
         try:
             k = await message.reply(f"**Please Wait , Bot Is processing The Link {message.text}**")
-            bypass_link = await gplinks_bypass(link) 
+            bypass_link = await gplinks_bypass(link)
             link_by = bypass_link.get('url')
-            
-            
+
             await asyncio.sleep(9)
             await k.delete()
             txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**\nTotal Links = {count}**'
-            await message.reply(txt, quote = True)
-           
+            await message.reply(txt, quote=True)
+
             await bot.send_message(LOG_CHANNEL, txt)
-            
+
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
+
+    if "linkvertise" in link :
+        try:
+            k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
+            bypass_link = await lv_bypass(link)
+            await asyncio.sleep(9)
+            await k.delete()
+            txt = f'**🧨ByPassed Url**:</b>**{bypass_link}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**'
+            await message.reply(txt, quote=True)
+            await bot.send_message(LOG_CHANNEL, txt)
+
+        except Exception as e:
+            await message.reply(f'Error: {e}', quote=True)
+
     if "droplink" in link:
         try:
-           
+
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
-            bypass_link = await droplink_bypass(link) 
+            bypass_link = await droplink_bypass(link)
             link_by = bypass_link.get('url')
-            
+
             await asyncio.sleep(9)
             await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**\nTotal Links = {count}**'
-            await message.reply(txt, quote = True)
+            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**'
+            await message.reply(txt, quote=True)
             await bot.send_message(LOG_CHANNEL, txt)
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
-    if 'gplinks' not in link and 'droplink' not in link:
+
+    if link:
+        try:
+            k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
+            bypass_link = await adfly_bypass(link)
+            link_by = bypass_link.get('bypassed_url')
+            await asyncio.sleep(9)
+            await k.delete()
+            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**'
+            await message.reply(txt, quote=True)
+            await bot.send_message(LOG_CHANNEL, txt)
+        except Exception as e:
+             await message.reply(f'Error: {e}', quote=True)
+    if "ouo" in link:
+        try:
+            k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
+            bypass_link = await ouo_bypass(link)
+            link_by = bypass_link.get('bypassed_link')
+            await asyncio.sleep(9)
+            await k.delete()
+            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**'
+            await message.reply(txt, quote=True)
+            await bot.send_message(LOG_CHANNEL, txt)
+        except Exception as e:
+            await message.reply(f'Error: {e}', quote=True)
+
+
+    if 'gplinks' not in link and 'droplink' not in link :
         try:
             txt1 = f'**{message.text} \n {message.chat.username} / {message.chat.id} \n My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot** \n\n **Any Issued Contact @LoveToRide**'
-            await message.reply(txt1 , quote = True) 
+            await message.reply(txt1, quote=True)
             await bot.send_message(LOG_CHANNEL, txt1)
         except Exception as e:
-            await message.reply(f'Error: {e}', quote=True)                    
+            await message.reply(f'Error: {e}', quote=True)
+
+
+
 async def gplinks_bypass(url):
     client = requests.Session()
     res = client.get(url)
-    
-    h = { "referer": res.url }
+
+    h = {"referer": res.url}
     res = client.get(url, headers=h)
-    
+
     bs4 = BeautifulSoup(res.content, 'lxml')
     inputs = bs4.find_all('input')
-    data = { input.get('name'): input.get('value') for input in inputs }
+    data = {input.get('name'): input.get('value') for input in inputs}
 
     h = {
         'content-type': 'application/x-www-form-urlencoded',
         'x-requested-with': 'XMLHttpRequest'
     }
-    
-    time.sleep(10) # !important
-    
+
+    time.sleep(10)  # !important
+
     p = urlparse(url)
     final_url = f'{p.scheme}://{p.netloc}/links/go'
     res = client.post(final_url, data=data, headers=h).json()
 
     return res
+
 
 async def droplink_bypass(url):
     client = requests.Session()
@@ -304,7 +166,7 @@ async def droplink_bypass(url):
 
     bs4 = BeautifulSoup(res.content, 'lxml')
     inputs = bs4.find_all('input')
-    data = { input.get('name'): input.get('value') for input in inputs }
+    data = {input.get('name'): input.get('value') for input in inputs}
 
     h = {
         'content-type': 'application/x-www-form-urlencoded',
@@ -317,6 +179,122 @@ async def droplink_bypass(url):
     res = client.post(final_url, data=data, headers=h).json()
 
     return res
+
+# -------------------------------------------
+import re
+import time
+import json
+import base64
+import requests
+async def lv_bypass(url):
+    client = requests.Session()
+
+    headers = {
+        "User-Agent": "AppleTV6,2/11.1",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+
+    client.headers.update(headers)
+
+    url = url.replace("%3D", " ").replace("&o=sharing", "").replace("?o=sharing", "").replace("dynamic?r=", "dynamic/?r=")
+
+    id_name = re.search(r"\/\d+\/[^\/]+", url)
+
+    if not id_name: return None
+
+    paths = [
+        "/captcha",
+        "/countdown_impression?trafficOrigin=network",
+        "/todo_impression?mobile=true&trafficOrigin=network"
+    ]
+
+    for path in paths:
+        url = f"https://publisher.linkvertise.com/api/v1/redirect/link{id_name[0]}{path}"
+        response = client.get(url).json()
+        if response["success"]: break
+
+    data = client.get(f"https://publisher.linkvertise.com/api/v1/redirect/link/static{id_name[0]}").json()
+
+    out = {
+        'timestamp':int(str(time.time_ns())[0:13]),
+        'random':"6548307",
+        'link_id':data["data"]["link"]["id"]
+    }
+
+    options = {
+        'serial': base64.b64encode(json.dumps(out).encode()).decode()
+    }
+
+    data = client.get("https://publisher.linkvertise.com/api/v1/account").json()
+    user_token = data["user_token"] if "user_token" in data.keys() else None
+
+    url_submit = f"https://publisher.linkvertise.com/api/v1/redirect/link{id_name[0]}/target?X-Linkvertise-UT={user_token}"
+
+    data = client.post(url_submit, json=options).json()
+
+    return data["data"]["target"]
+
+
+import re
+import requests
+from base64 import b64decode
+from urllib.parse import unquote
+
+
+def decrypt_url(code):
+    a, b = '', ''
+    for i in range(0, len(code)):
+        if i % 2 == 0:
+            a += code[i]
+        else:
+            b = code[i] + b
+
+    key = list(a + b)
+    i = 0
+
+    while i < len(key):
+        if key[i].isdigit():
+            for j in range(i + 1, len(key)):
+                if key[j].isdigit():
+                    u = int(key[i]) ^ int(key[j])
+                    if u < 10: key[i] = str(u)
+                    i = j
+                    break
+        i += 1
+
+    key = ''.join(key)
+    decrypted = b64decode(key)[16:-16]
+
+    return decrypted.decode('utf-8')
+
+
+# ==========================================
+import re
+import requests
+from base64 import b64decode
+from urllib.parse import unquote
+async def adfly_bypass(url):
+    res = requests.get(url).text
+
+    out = {'error': False, 'src_url': url}
+
+    try:
+        ysmm = re.findall("ysmm\s+=\s+['|\"](.*?)['|\"]", res)[0]
+    except:
+        out['error'] = True
+        return out
+
+    url = decrypt_url(ysmm)
+
+    if re.search(r'go\.php\?u\=', url):
+        url = b64decode(re.sub(r'(.*?)u=', '', url)).decode()
+    elif '&dest=' in url:
+        url = unquote(re.sub(r'(.*?)dest=', '', url))
+
+    out['bypassed_url'] = url
+
+    return out
 
 
 bot.run()
