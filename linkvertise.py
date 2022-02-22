@@ -4,34 +4,9 @@ import json
 import base64
 import requests
 
-def decrypt_url(code):
-    a, b = '', ''
-    for i in range(0, len(code)):
-        if i % 2 == 0:
-            a += code[i]
-        else:
-            b = code[i] + b
+# -------------------------------------------
 
-    key = list(a + b)
-    i = 0
-
-    while i < len(key):
-        if key[i].isdigit():
-            for j in range(i + 1, len(key)):
-                if key[j].isdigit():
-                    u = int(key[i]) ^ int(key[j])
-                    if u < 10: key[i] = str(u)
-                    i = j
-                    break
-        i += 1
-
-    key = ''.join(key)
-    decrypted = b64decode(key)[16:-16]
-
-    return decrypted.decode('utf-8')
-
-
-async def lv_bypass(url):
+def lv_bypass(url):
     client = requests.Session()
     
     headers = {
@@ -79,6 +54,7 @@ async def lv_bypass(url):
     data = client.post(url_submit, json=options).json()
     
     return data["data"]["target"]
+
 
 
 
