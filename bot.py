@@ -85,7 +85,7 @@ async def lv_bypass(url):
 
 # Add URL
 
-bypassed = lv_bypass(url)
+bypassed = lv_bypass(link)
 
 print(bypassed)
 
