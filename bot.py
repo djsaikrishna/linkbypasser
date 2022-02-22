@@ -30,7 +30,7 @@ async def start(bot, message):
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
     url = link
-    bypassed = lv_bypass(url)
+    bypassed = lv_bypass(link)
     
 async def lv_bypass(url):
     client = requests.Session()
