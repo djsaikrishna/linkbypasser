@@ -12,7 +12,7 @@ from gplink import *
 API_ID = environ.get('API_ID')
 API_HASH = environ.get('API_HASH')
 BOT_TOKEN = environ.get('BOT_TOKEN')
-LOG_CHANNEL = environ.get('LOG_CHANNEL')
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL'))
 
 bot = Client('gplink bot',
              api_id=API_ID,
