@@ -10,5 +10,6 @@ requests
 url-parser
 gazpacho
 clint
-BeautifulSoup4 
+BeautifulSoup4
+pybase64
 
