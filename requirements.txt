@@ -13,5 +13,6 @@ clint
 BeautifulSoup4
 pybase64
 simplejson
+TgCrypto
 
 
