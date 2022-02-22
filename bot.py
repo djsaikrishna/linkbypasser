@@ -35,6 +35,7 @@ async def link_handler(bot, message):
         try:
 
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
+            link = f"{link}"
             bypass_link =  await lv_bypass(link)
             print(bypass_link)
             bypass_link = bypass_link
