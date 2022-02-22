@@ -94,7 +94,7 @@ async def link_handler(bot, message):
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
 
-    if link:
+    if "https" in link:
         try:
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
             bypass_link = await adfly_bypass(link)
@@ -120,13 +120,7 @@ async def link_handler(bot, message):
             await message.reply(f'Error: {e}', quote=True)
 
 
-    if 'gplinks' not in link and 'droplink' not in link :
-        try:
-            txt1 = f'**{message.text} \n {message.chat.username} / {message.chat.id} \n My Bot Support Only Gplinks , Droplink .So Dont Use Any Other Link To Spam The Bot** \n\n **Any Issued Contact @LoveToRide**'
-            await message.reply(txt1, quote=True)
-            await bot.send_message(LOG_CHANNEL, txt1)
-        except Exception as e:
-            await message.reply(f'Error: {e}', quote=True)
+
 
 
 
