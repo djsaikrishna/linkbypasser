@@ -36,6 +36,7 @@ async def link_handler(bot, message):
 
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
             bypass_link =  lv_bypass(link)
+            print(bypass_link)
             bypass_link = bypass_link
             await asyncio.sleep(9)
             await k.delete()
@@ -66,7 +67,9 @@ async def link_handler(bot, message):
             
             link = f"{message.text}"
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
+            
             bypass_link = await ouo_bypass(link)
+            print(bypass_link)
             bypass_link = bypass_link.get('bypassed_link')
             await asyncio.sleep(9)
             await k.delete()
