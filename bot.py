@@ -168,7 +168,7 @@ async def lv_bypass(url):
     
     data = client.post(url_submit, json=options).json()
     
-    return data
+    return data['data']
 
 # -------------------------------------------
 
