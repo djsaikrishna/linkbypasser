@@ -27,13 +27,13 @@ async def start(bot, message):
         "**Hey I Am By_Passer Bot Don't Flood A Bot ,Don't Use This Bot Without Getting Permission From Developer**.\n\n **Credits : XCSCXR For His Script**   \n\n **Dev By : @LoveToRide**  ")
 
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private)
-async def link_handler(bot, message):
+ def link_handler(bot, message):
     link = message.matches[0].group(0)
     url = link
     bypassed = lv_bypass(link)
     print(bypassed)
     
-async def lv_bypass(url):
+ def lv_bypass(url):
     client = requests.Session()
     
     headers = {
