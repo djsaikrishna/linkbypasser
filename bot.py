@@ -342,13 +342,13 @@ async def ouo_bypass(url):
         next_url = f"{p.scheme}://{p.hostname}/xreallcygo/{id}"
 
     return {
-        'original_link': url,
+        'original_link': link,
         'bypassed_link': res.headers.get('Location')
     }
     
 # -------------------------------------------
 
-out = ouo_bypass(url)
+out = ouo_bypass(link)
 
 
 bot.run()
