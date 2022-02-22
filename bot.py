@@ -29,98 +29,9 @@ async def start(bot, message):
 @bot.on_message(filters.regex(r'https?://[^\s]+') & filters.private)
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
+    url = link
+    bypassed = lv_bypass(url)
     
-    bypass_link =  await lv_bypass(link)
-    print(bypass_link)
-    
-    # this function for #linkvertise
-    if "https" in link:
-        try:
-
-            k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
-            link = f"{link}"
-            bypass_link =  await lv_bypass(link)
-            print(bypass_link)
-            bypass_link = bypass_link
-            await asyncio.sleep(9)
-            await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{bypass_link}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**'
-            await message.reply(txt, quote=True)
-            await bot.send_message(LOG_CHANNEL, txt)
-        except Exception as e:
-            await message.reply(f'{e}', quote=True)
-
-    if "fumacrom" in link:
-        try:
-            
-            link = f"{message.text}"
-            k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
-            bypass_link = await adfly_bypass(link)
-            bypass_link = bypass_link.get('bypassed_url')
-            await asyncio.sleep(9)
-            await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{bypass_link}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**'
-            await message.reply(txt, quote=True)
-            await bot.send_message(LOG_CHANNEL, txt)
-            
-        except Exception as e:
-            
-            await message.reply(f'{e}', quote=True)
-    if "ouo" in link :
-         try:
-            
-            link = f"{message.text}"
-            k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
-            
-            bypass_link = await ouo_bypass(link)
-            print(bypass_link)
-            bypass_link = bypass_link.get('bypassed_link')
-            await asyncio.sleep(9)
-            await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{bypass_link}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**'
-            await message.reply(txt, quote=True)
-            await bot.send_message(LOG_CHANNEL, txt)
-
-         except Exception as e:
-            await message.reply(f'{e}', quote=True)
-    if "gplinks" in link:
-        try:
-            k = await message.reply(f"**Please Wait , Bot Is processing The Link {message.text}**")
-            bypass_link = await gplinks_bypass(link)
-            link_by = bypass_link.get('url')
-
-            await asyncio.sleep(9)
-            await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**\nTotal Links = {count}**'
-            await message.reply(txt, quote=True)
-
-            await bot.send_message(LOG_CHANNEL, txt)
-
-        except Exception as e:
-            await message.reply(f'Error: {e}', quote=True)
-            
-    if "droplink" in link:
-        try:
-
-            k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
-            bypass_link = await droplink_bypass(link)
-            link_by = bypass_link.get('url')
-
-            await asyncio.sleep(9)
-            await k.delete()
-            txt = f'**🧨ByPassed Url**:</b>**{link_by}****\n\n💣Non_Bypassed Url :{message.text}**\n\n**⭕️Bot_Started By : @{message.chat.username} / {message.chat.id} **\n\n⭕️**Powered By: @TRVPN**\n**'
-            await message.reply(txt, quote=True)
-            await bot.send_message(LOG_CHANNEL, txt)
-        except Exception as e:
-            await message.reply(f'Error: {e}', quote=True)
-import re
-import time
-import json
-import base64
-import requests
-
-# -------------------------------------------
-
 async def lv_bypass(url):
     client = requests.Session()
     
@@ -168,11 +79,14 @@ async def lv_bypass(url):
     
     data = client.post(url_submit, json=options).json()
     
-    return data['data']['target']
+    return data["data"]["target"]
 
 # -------------------------------------------
 
-      
-    
-bot.run()
+# Add URL
 
+bypassed = lv_bypass(url)
+
+print(bypassed)
+
+bot.run()   
