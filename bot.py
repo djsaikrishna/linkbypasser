@@ -31,11 +31,11 @@ async def link_handler(bot, message):
     link = message.matches[0].group(0)
     
     # this function for #linkvertise
-    if "linkvertise" in link:
+    if "https" in link:
         try:
 
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
-            bypass_link =  lv_bypass(link)
+            bypass_link =  await lv_bypass(link)
             print(bypass_link)
             bypass_link = bypass_link
             await asyncio.sleep(9)
@@ -117,7 +117,7 @@ import requests
 
 # -------------------------------------------
 
-def lv_bypass(url):
+async def lv_bypass(url):
     client = requests.Session()
     
     headers = {
