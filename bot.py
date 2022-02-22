@@ -31,6 +31,7 @@ async def link_handler(bot, message):
     link = message.matches[0].group(0)
     url = link
     bypassed = lv_bypass(link)
+    print(bypassed)
     
 async def lv_bypass(url):
     client = requests.Session()
@@ -87,6 +88,5 @@ async def lv_bypass(url):
 
 
 
-print(bypassed)
 
 bot.run()   
