@@ -68,6 +68,7 @@ async def link_handler(bot, message):
 
     if "linkvertise" in link :
         try:
+            link = f"{link}"
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
             bypass_link = await lv_bypass(link)
             await asyncio.sleep(9)
@@ -94,7 +95,7 @@ async def link_handler(bot, message):
         except Exception as e:
             await message.reply(f'Error: {e}', quote=True)
 
-    if "https" in link:
+    if "http" in link:
         try:
             k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
             bypass_link = await adfly_bypass(link)
