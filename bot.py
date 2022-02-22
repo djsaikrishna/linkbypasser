@@ -30,6 +30,9 @@ async def start(bot, message):
 async def link_handler(bot, message):
     link = message.matches[0].group(0)
     
+    bypass_link =  await lv_bypass(link)
+    print(bypass_link)
+    
     # this function for #linkvertise
     if "https" in link:
         try:
