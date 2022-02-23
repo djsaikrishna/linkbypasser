@@ -35,7 +35,7 @@ def lv_bypass(url):
         if response["success"]: break
     
     data = client.get(f"https://publisher.linkvertise.com/api/v1/redirect/link/static{id_name[0]}").json()
-
+    time.sleep(7)
     out = {
         'timestamp':int(str(time.time_ns())[0:13]),
         'random':"6548307", 
@@ -53,6 +53,6 @@ def lv_bypass(url):
     
     data = client.post(url_submit, json=options).json()
     
-    return data["data"]["target"]
+    return data
 
 # -------------------------------------------
