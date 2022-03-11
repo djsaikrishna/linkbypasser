@@ -1,6 +1,10 @@
 from os import environ
 import asyncio
 import re
+import requests
+
+from bs4 import BeautifulSoup
+
 from pyrogram import Client, filters
 import time
 from adfly import *
