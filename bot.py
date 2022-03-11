@@ -67,7 +67,7 @@ async def link_handler(bot, message):
             await message.reply(zap, quote=True)
         elif 'magnet' in ge:
             sap = f"Magnetic Link :\n\n {ge}"
-            await message.reply(zap, quote=True)
+            await message.reply(sap, quote=True)
             
             
 bot.run()
