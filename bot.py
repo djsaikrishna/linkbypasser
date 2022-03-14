@@ -61,7 +61,7 @@ async def link_handler(bot, message):
     getting_filter = []
     for dump in getting_link:
         if 'applications' in getting_filter:
-            print(f"Torrent File Link :\n\n {last_check}")
+            print(f"{last_check}")
         if dump is None :
             pass
         elif 'applications'in dump:
@@ -73,14 +73,14 @@ async def link_handler(bot, message):
       
         if 'www' in last_check:
             
-            zap = f"Torrent File Link :\n\n {last_check}"
+            zap = f"{last_check}"
             await message.reply(zap, quote=True)
 
         
 
         elif 'applications' in last_check:
             
-            aap = f"Torrent File Link :\n\n {last_check}"
+            aap = f"{last_check}"
             await message.reply(aap, quote=True)
 
             
