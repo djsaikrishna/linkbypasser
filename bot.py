@@ -40,34 +40,49 @@ async def link_handler(bot, message):
     link = f"{message.text}"
     k = await message.reply(f"**Please Wait , Bot Is Processing 🔑 The Link {message.text}**")
     URL = link
-    r = requests.get(URL)
+    getting_info = requests.get(URL)
 
-    r = r.text
+    getting_info = getting_info.text
 
-    soup = BeautifulSoup(r,'html.parser')
-
-    tr = []
+    soup = BeautifulSoup(getting_info,'html.parser')
+    text_get = soup.text
+    getting_link = []
+    getting_text = []
     for link in soup.find_all('a'):
+        link_te = link.text
         list1 = link.get('href')
-        tr.append(list1)
+        getting_link.append(link_te)
+        getting_link.append(list1)
+        
+        
+     
+            
 
-
-    b = []
-    for i in tr:
-
-        if i is None :
+    getting_filter = []
+    for dump in getting_link:
+        if 'applications' in getting_filter:
+            print(f"Torrent File Link :\n\n {last_check}")
+        if dump is None :
 
            pass
         else:
-            b.append(i)
-    for ge in b:
+            getting_filter.append(dump)
+    for last_check in getting_filter:
 
-        if 'applications' in ge:
-            zap = f"Torrent File Link :\n\n {ge}"
+      
+        if 'www' in last_check:
+            
+            zap = f"Torrent File Link :\n\n {last_check}"
             await message.reply(zap, quote=True)
-        elif 'magnet' in ge:
-            sap = f"Magnetic Link :\n\n {ge}"
+
+        
+
+        elif 'applications' in last_check:
             
+            aap = f"Torrent File Link :\n\n {last_check}"
+            await message.reply(aap, quote=True)
+
             
-            
+       
+                
 bot.run()
