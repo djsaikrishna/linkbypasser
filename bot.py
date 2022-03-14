@@ -74,14 +74,14 @@ async def link_handler(bot, message):
         if 'www' in last_check:
             
             zap = f"{last_check}"
-            await message.reply(zap, quote=True)
+            await bot.send_message(message.chat_id, text = zap)
 
         
 
         elif 'applications' in last_check:
             
             aap = f"{last_check}"
-            await message.reply(aap, quote=True)
+            await bot.send_message(message.chat_id, text = zap)
 
             
        
