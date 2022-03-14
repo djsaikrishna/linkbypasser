@@ -68,20 +68,21 @@ async def link_handler(bot, message):
             getting_filter.append(dump)
         elif dump.startswith('www'):
             getting_filter.append(dump)
+    get_c = ' '  
     for last_check in getting_filter:
 
       
         if 'www' in last_check:
             
-            zap = f"{last_check}"
-            await message.reply(zap, quote=True)
+            get_c = get_c + last_check +'\n'
+            
 
         
 
         elif 'applications' in last_check:
             
-            aap = f"{last_check}"
-            await message.reply(aap, quote=True)
+            get_c = get_c + last_check +'\n'
+    await message.reply(get_c, quote=True)
 
             
        
