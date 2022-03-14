@@ -63,9 +63,10 @@ async def link_handler(bot, message):
         if 'applications' in getting_filter:
             print(f"Torrent File Link :\n\n {last_check}")
         if dump is None :
-
-           pass
-        else:
+            pass
+        elif 'applications'in dump:
+            getting_filter.append(dump)
+        elif dump.startswith('www'):
             getting_filter.append(dump)
     for last_check in getting_filter:
 
