@@ -51,8 +51,10 @@ async def link_handler(bot, message):
     for link in soup.find_all('a'):
         link_te = link.text
         list1 = link.get('href')
-        getting_link.append(link_te)
         getting_link.append(list1)
+        if 'MB' in link_te or 'GB' in link_te:
+           getting_text.append(list1)
+        
         
         
      
@@ -69,19 +71,21 @@ async def link_handler(bot, message):
         elif dump.startswith('www'):
             getting_filter.append(dump)
     get_c = ' '  
-    for last_check in getting_filter:
+    for last_check,last_text in zip(getting_filter , getting_text):
+
+        get = get+last_text+'\n\n'
 
       
         if 'www' in last_check:
             
-            get_c = get_c + last_check +'\n'
+            get_c = get_c + last_check +'\n\n'
             
 
         
 
         elif 'applications' in last_check:
             
-            get_c = get_c + last_check +'\n'
+            get_c = get_c + last_check +'\n\n'
     await message.reply(get_c, quote=True)
 
             
