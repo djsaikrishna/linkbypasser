@@ -52,7 +52,7 @@ async def link_handler(bot, message):
         link_te = link.text
         list1 = link.get('href')
         getting_link.append(list1)
-        if 'MB' in link_te or 'GB' in link_te:
+        if link_te.endswith('torrent'):
            getting_text.append(link_te)
         
         
