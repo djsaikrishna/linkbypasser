@@ -53,7 +53,7 @@ async def link_handler(bot, message):
         list1 = link.get('href')
         getting_link.append(list1)
         if 'MB' in link_te or 'GB' in link_te:
-           getting_text.append(list1)
+           getting_text.append(link_te)
         
         
         
