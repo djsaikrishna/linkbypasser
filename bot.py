@@ -73,7 +73,7 @@ async def link_handler(bot, message):
     get_c = ' '  
     for last_check,last_text in zip(getting_filter , getting_text):
 
-        get = get+last_text+'\n\n'
+        get_c = get_c+last_text+'\n\n'
 
       
         if 'www' in last_check:
