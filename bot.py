@@ -20,7 +20,7 @@ BOT_TOKEN = environ.get('BOT_TOKEN')
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL'))
 USER_STRING_SESSION = '1BJWap1wBuxMmmRlbwGLEufKPuO4_EhvIdQS2WmPe19sjVAK-Jl2gyFIuNSwRyv9hPNjMsJLcfthQ9_uyO-LUBPgGPckkc3_qY_UHRy0y8HV89Bzq39NgQf6RXedgJSVyW2vlhSboOToHmGds89qCi_LL2MbB_H9CHqeqcjjvCdxy4OW8rA0T_hL7SARv4U33j6VEBdL86bk-XLM2hc2lUljyk5G5dZknMJVA_pyI4xvggdBs1XWd-T-ymn-v1EenJMuhd7ews2U_wRYMClM0ue4hR6uaLUWiWl69Y6RWF51zJ1RChYRXzzHn_UKTCQ-1LMgZZydty9VSqZxCzO55H1BbJRQsz1k='
 rss_session = Client(USER_STRING_SESSION, api_id=int(API_ID), api_hash=API_HASH)
-rss_session.run()
+
 RSS_CHAT_ID = -1001592086289
 bot = Client('gplink bot',
              api_id=API_ID,
@@ -91,10 +91,11 @@ async def link_handler(bot, message):
             
             get_c = get_c + last_check +'\n\n'
     get_a = '\mirror ' + get_c
-    await rss_session.send_message(RSS_CHAT_ID, get_a, parse_mode='HTMl', disable_web_page_preview=True)
+    await rss_session.send_message(RSS_CHAT_ID, get_a)
     await message.reply(get_c, quote=True)
 
             
        
                 
 bot.run()
+rss_session.start()
