@@ -90,7 +90,7 @@ async def link_handler(bot, message):
             
             get_c = get_c + last_check +'\n\n'
     get_a = '\mirror ' + get_c
-    rss_session.send_message(RSS_CHAT_ID, get_a, parse_mode='HTMl', disable_web_page_preview=True)
+    await rss_session.send_message(RSS_CHAT_ID, get_a, parse_mode='HTMl', disable_web_page_preview=True)
     await message.reply(get_c, quote=True)
 
             
