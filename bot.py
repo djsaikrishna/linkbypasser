@@ -29,7 +29,7 @@ bot = Client('gplink bot',
              workers=50,
              sleep_threshold=10)
 
-
+rss_session.start()
 
 @bot.on_message(filters.command('start') & filters.private)
 async def start(bot, message):
