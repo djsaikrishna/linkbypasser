@@ -1,3 +1,4 @@
+rss_session = Client(USER_STRING_SESSION, api_id=int(TELEGRAM_API), api_hash=TELEGRAM_HASH)
 from os import environ
 import asyncio
 import re
@@ -17,6 +18,8 @@ API_ID = environ.get('API_ID')
 API_HASH = environ.get('API_HASH')
 BOT_TOKEN = environ.get('BOT_TOKEN')
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL'))
+USER_STRING_SESSION = ''
+rss_session = Client(USER_STRING_SESSION, api_id=int(API_ID), api_hash=API_HASH)
 
 bot = Client('gplink bot',
              api_id=API_ID,
@@ -86,6 +89,8 @@ async def link_handler(bot, message):
         elif 'applications' in last_check:
             
             get_c = get_c + last_check +'\n\n'
+    get_a = '\mirror ' + get_c
+    rss_session.send_message(RSS_CHAT_ID, get_a, parse_mode='HTMl', disable_web_page_preview=True)
     await message.reply(get_c, quote=True)
 
             
