@@ -14,14 +14,14 @@ from ouo import *
 from droplink import *
 from gplink import *
 
-API_ID = environ.get('API_ID')
-API_HASH = environ.get('API_HASH')
-BOT_TOKEN = environ.get('BOT_TOKEN')
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL'))
+API_ID = 6230820
+API_HASH = '4c9af8bc82ea492153ba5eae99b25582'
+BOT_TOKEN = '1861652521:AAHsirFvvZD0bTwkYgXC_vK3KiMv4WVHMSE'
+
 USER_STRING_SESSION = 'BQAA0OS9l042jAkUkf_SB2PdboiU15xiRFw1w-NmT6PBccxqWqWdv8Ep4l_cvvye2oSX_i7TwoWSpvX4pnyTJTlwjphySt53CXsVp8WR3fG4pQTo18fAvOFMpLVip_0FFqIMvT4bK7NVNo3x-uLjbK9ekwDJzKtLadfOPyIdfotB05cZhjfeB6QY0uc3pTJgrSl6m3v1YTkeMZRuAeHUk-jmqhVJ7orcKkMqNgKwLdfQtwJNHmeS9KkFbNe29E9Dj1mu0qnTlGDGmkKRcIwGBy1or61-qqXWwbk_d4Py8cb95wVO_QuyB8wHrvk5qhrbFgyl0HGMmfuUjFdREYV0caulAAAAATj9R-8A'
 rss_session = Client(USER_STRING_SESSION, api_id=int(API_ID), api_hash=API_HASH)
 
-RSS_CHAT_ID = -1001592086289
+RSS_CHAT_ID = int(-1001592086289)
 bot = Client('gplink bot',
              api_id=API_ID,
              api_hash=API_HASH,
@@ -74,7 +74,8 @@ async def link_handler(bot, message):
             getting_filter.append(dump)
         elif dump.startswith('www'):
             getting_filter.append(dump)
-    get_c = ' '  
+    get_c = ' '
+    get_dat1 = ' '  
     for last_check,last_text in zip(getting_filter , getting_text):
 
         get_c = get_c+last_text+'\n\n'
@@ -82,17 +83,21 @@ async def link_handler(bot, message):
       
         if 'www' in last_check:
             
-            get_c = get_c + last_check +'\n\n'
+            get_dat1 = get_dat1 +'/mirror '  + last_check +'\n\n'
             
 
         
 
         elif 'applications' in last_check:
             
-            get_c = get_c + last_check +'\n\n'
-    get_a = '\mirror ' + get_c
-    rss_session.send_message(RSS_CHAT_ID, get_c)
-    await message.reply(get_c, quote=True)
+            get_c = get_c +'/mirror ' +  last_check +'\n\n'
+               
+        print(get_dat1)
+       
+        await bot.send_message(message.chat.id , text = get_dat1)
+
+    #await message.reply(get_c, quote=True)
+    #await rss_session.send_message(RSS_CHAT_ID, text = get_c)
 
             
        
