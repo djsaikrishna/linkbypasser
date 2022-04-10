@@ -91,7 +91,7 @@ async def link_handler(bot, message):
             
             get_c = get_c + last_check +'\n\n'
     get_a = '\mirror ' + get_c
-    await rss_session.send_message(RSS_CHAT_ID, get_a)
+    rss_session.send_message(RSS_CHAT_ID, get_c)
     await message.reply(get_c, quote=True)
 
             
